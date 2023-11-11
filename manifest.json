@@ -1,0 +1,15 @@
+{
+    "manifest_version": 3,
+    "name": "to_do",
+    "version": "1.0",
+    "description": "scrubbles your cookies yum yum",
+    "permissions": ["storage","tabs","cookies","activeTab"],
+    "icons": {
+      "48": "icon.png"
+    },
+   
+    "action":{
+      "default_popup": "popup.html"
+    }
+  }
+  
