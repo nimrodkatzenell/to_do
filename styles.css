@@ -2,7 +2,7 @@ body {
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 20px;
-  background-color: rgb(102, 166, 230);
+  background-color: rgb(15, 83, 151);
   color: white;
 }
 
@@ -22,12 +22,18 @@ li {
  justify-content: space-between; /* Align items to the start and end */
 }
 
+
+
 input[type="checkbox"] {
   transform: scale(1.5);
   order: 2; /* Reorder the checkbox to the end */
   margin-left: 10px;/* Adjust spacing */
   margin-right: 10px;
+  content: '🗑️';
+  display: inline-block;
 }
+
+
 
 input {
   width: calc(100% -30); /* Adjust width to accommodate checkbox */
@@ -35,3 +41,18 @@ input {
   margin-bottom: 10px;
   color: black;
 }
+
+a:visited {
+  color: rgb(238, 196, 238); /* Color for visited links */
+}
+
+a:hover {
+  color: red; /* Color when hovering over the link */
+}
+
+
+a:active {
+  color: green; /* Color when the link is being clicked */
+}
+
+

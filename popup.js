@@ -1,7 +1,9 @@
+
+
 document.addEventListener('DOMContentLoaded', function() {
     const inputField = document.getElementById('todoInput');
     const todoList = document.getElementById('todoList');
-  
+    
     // Load stored todos on extension popup open
     chrome.storage.sync.get(['todos'], function(result) {
       if (result.todos) {
@@ -12,15 +14,34 @@ document.addEventListener('DOMContentLoaded', function() {
     inputField.addEventListener('keypress', function(e) {
       if (e.key === 'Enter') {
              const todoText = inputField.value;
+             const d = new Date();
+             const now = d.getTime();
+             const date = new Date(now);
+             const year = date.getFullYear();
+             const month = date.getMonth() + 1; // Month starts from 0, so adding 1 to match the human-readable format
+             const day = date.getDate();
+             const hours = date.getHours();
+             const minutes = date.getMinutes();
+             const seconds = date.getSeconds();
+             const formattedDateTime = `${day.toString().padStart(2, '0')}-${month.toString().padStart(2, '0')}-${year}-${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+
+
+ 
+
+             
+
           
         if (todoText) {
-          addTodoToList(todoText);
-          saveTodo(todoText);
+          
+          addTodoToList(todoText +":  "+formattedDateTime);
+          saveTodo(todoText +":  "+ formattedDateTime);
           inputField.value = '';
         }
       }
     });
   
+    
+    
     function addTodoToList(todoText) {
        
       const listItem = document.createElement('li');
@@ -35,19 +56,34 @@ document.addEventListener('DOMContentLoaded', function() {
         mailLink.textContent = todoText;
         listItem.appendChild(checkbox);
         listItem.appendChild(mailLink);
-      } else {
-        const textNode = document.createTextNode(todoText);
+      }
+       else if (todoText.toLowerCase().includes('whatsapp')) {
+          const whatsapp = document.createElement('a');
+          whatsapp.href = 'https://web.whatsapp.com/';
+          whatsapp.target = '_blank';
+          whatsapp.textContent = todoText;
+          listItem.appendChild(checkbox);
+          listItem.appendChild(whatsapp);
+
+      } 
+      else {
         checkbox.addEventListener('change', function() {
             if (checkbox.checked) {
               todoList.removeChild(listItem);
               deleteTodo(todoText);
             }
           });
+        const textNode = document.createTextNode(todoText);
+
         listItem.appendChild(checkbox);
         listItem.appendChild(textNode);
       }
       
+      
       todoList.appendChild(listItem);
+    
+    
+    
       checkbox.addEventListener('change', function() {
         if (checkbox.checked) {
           todoList.removeChild(listItem);
@@ -56,6 +92,8 @@ document.addEventListener('DOMContentLoaded', function() {
       });
     }
   
+
+
     function saveTodo(todo) {
       chrome.storage.sync.get(['todos'], function(result) {
         const todos = result.todos || [];
@@ -64,6 +102,9 @@ document.addEventListener('DOMContentLoaded', function() {
       });
     }
   
+
+
+
     function deleteTodo(todo) {
       chrome.storage.sync.get(['todos'], function(result) {
         const todos = result.todos || [];
@@ -72,4 +113,8 @@ document.addEventListener('DOMContentLoaded', function() {
       });
     }
   });
+
+
+  
+
   
